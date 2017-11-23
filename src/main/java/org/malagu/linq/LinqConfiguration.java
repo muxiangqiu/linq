@@ -19,7 +19,7 @@ import org.malagu.linq.initiator.JpaUtilInitiator;
  */
 @Configuration
 @ComponentScan
-public class JpaConfiguration implements ApplicationContextAware {
+public class LinqConfiguration implements ApplicationContextAware {
 
 	@Autowired
 	List<JpaUtilInitiator> jpaUtilInitiators;
