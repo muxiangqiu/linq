@@ -731,6 +731,7 @@ public abstract class JpaUtil {
 		return result;
 	}
 
+	@SuppressWarnings("rawtypes")
 	private static Object getValue(String propertyName, Object obj) {
 		if (obj instanceof Map) {
            return ((Map) obj).get(propertyName);
