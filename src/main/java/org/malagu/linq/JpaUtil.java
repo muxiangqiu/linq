@@ -477,7 +477,7 @@ public abstract class JpaUtil {
 	 * @return EntityManager
 	 */
 	public static EntityManager getEntityManager() {
-		return getEntityManager(null);
+		return getEntityManager((Class<?>)null);
 	}
 	
 	/**
@@ -485,7 +485,7 @@ public abstract class JpaUtil {
 	 * @return EntityManager
 	 */
 	public static EntityManager createEntityManager() {
-		return createEntityManager(null);
+		return createEntityManager((Class<?>)null);
 	}
 	
 	/**
@@ -496,6 +496,16 @@ public abstract class JpaUtil {
 	 */
 	public static <T> EntityManager getEntityManager(Class<T> domainClass) {
 		EntityManagerFactory emf = getEntityManagerFactoryStrategy.getEntityManagerFactory(domainClass);
+		return EntityManagerFactoryUtils.getTransactionalEntityManager(emf);
+	}
+	
+	/**
+	 * 实体管理器工厂在spring中的名称，返回EmtityManager
+	 * @param entityManagerFactoryName 实体管理器工厂在spring中的名称
+	 * @return EntityManager
+	 */
+	public static EntityManager getEntityManager(String entityManagerFactoryName) {
+		EntityManagerFactory emf = getEntityManagerFactory(entityManagerFactoryName);
 		return EntityManagerFactoryUtils.getTransactionalEntityManager(emf);
 	}
 	
@@ -522,6 +532,25 @@ public abstract class JpaUtil {
 	}
 	
 	/**
+	 * 实体管理器工厂在spring中的名称，创建EmtityManager
+	 * @param entityManagerFactoryName 实体管理器工厂在spring中的名称
+	 * @return EntityManager
+	 */
+	public static EntityManager createEntityManager(String entityManagerFactoryName) {
+		EntityManagerFactory emf = getEntityManagerFactory(entityManagerFactoryName);
+		return emf.createEntityManager();
+	}
+	
+	/**
+	 * 实体管理器工厂在spring中的名称，获取EntityManagerFactory
+	 * @param entityManagerFactoryName 实体管理器工厂在spring中的名称
+	 * @return EntityManagerFactory
+	 */
+	public static <T> EntityManagerFactory getEntityManagerFactory(String entityManagerFactoryName) {
+		return (EntityManagerFactory) applicationContext.getBean(entityManagerFactoryName);
+	}
+	
+	/**
 	 * 根据领域类（实体类），获取EntityManagerFactory
 	 * @param domainClass 领域类（实体类）
 	 * @param <T> 领域类（实体类）范型
@@ -536,7 +565,7 @@ public abstract class JpaUtil {
 	 * @return EntityManagerFactory
 	 */
 	public static EntityManagerFactory getEntityManagerFactory() {
-		return getEntityManagerFactory(null);
+		return getEntityManagerFactory((Class<?>)null);
 	}
 	
 	/**
@@ -550,7 +579,7 @@ public abstract class JpaUtil {
 			getEntityManagerFactory(domainClass);
 			return true;
 		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 		return false;
 	}
@@ -740,7 +769,7 @@ public abstract class JpaUtil {
         } else if (obj != null) {
             PropertyDescriptor pd = BeanUtils.getPropertyDescriptor(obj.getClass(), propertyName);
             try {
-               return pd.getReadMethod().invoke(obj, new Object());
+               return pd.getReadMethod().invoke(obj, new Object[]{});
             } catch (Exception e) {
                 e.printStackTrace();
             }

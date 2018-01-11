@@ -190,7 +190,9 @@ public class LinqImpl extends LinImpl<Linq, CriteriaQuery<?>> implements Linq {
 			return new PageImpl<T>(list);
 		} else {
 			Sort sort = pageable.getSort();
-			orders.addAll(QueryUtils.toOrders(sort, root, cb));
+			if (sort != null) {
+				orders.addAll(QueryUtils.toOrders(sort, root, cb));
+			}
 			applyPredicateToCriteria(criteria);
 			TypedQuery<?> query = em.createQuery(criteria);
 			
