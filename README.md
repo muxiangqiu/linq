@@ -109,8 +109,8 @@ linq是基于JPA实现的。可以很简单的和spring-data-jpa和spring-boot�
 	JpaUtil
     	  .linq(User.class)
     	  .exists(DeptUser.class)
-    	  	.equal("deptId", "001")
-    	  	.equalProperty("userId", "id")
+    	    .equal("deptId", "001")
+    	    .equalProperty("userId", "id")
     	  .end()
           .addIf(xxx)
             .equal("age", 18)
