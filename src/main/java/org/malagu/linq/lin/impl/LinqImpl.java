@@ -195,8 +195,8 @@ public class LinqImpl extends LinImpl<Linq, CriteriaQuery<?>> implements Linq {
 			}
 			applyPredicateToCriteria(criteria);
 			TypedQuery<?> query = em.createQuery(criteria);
-			
-			query.setFirstResult(pageable.getOffset());
+			Long offset = pageable.getOffset();
+			query.setFirstResult(offset.intValue());
 			query.setMaxResults(pageable.getPageSize());
 
 			Long total = JpaUtil.count(criteria);
@@ -223,7 +223,8 @@ public class LinqImpl extends LinImpl<Linq, CriteriaQuery<?>> implements Linq {
 			applyPredicateToCriteria(criteria);
 			TypedQuery<?> query = em.createQuery(criteria);
 			
-			query.setFirstResult(pageable.getOffset());
+			Long offset = pageable.getOffset();
+			query.setFirstResult(offset.intValue());
 			query.setMaxResults(pageable.getPageSize());
 
 			return transform(query, false);

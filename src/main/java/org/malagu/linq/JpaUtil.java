@@ -451,7 +451,8 @@ public abstract class JpaUtil {
 			cq.orderBy(QueryUtils.toOrders(sort, root, em.getCriteriaBuilder()));
 			TypedQuery<T> query = em.createQuery(cq);
 			
-			query.setFirstResult(pageable.getOffset());
+			Long offset = pageable.getOffset();
+			query.setFirstResult(offset.intValue());
 			query.setMaxResults(pageable.getPageSize());
 
 			Long total = count(cq);
