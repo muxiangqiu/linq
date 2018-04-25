@@ -5,7 +5,7 @@
 
 	<groupId>org.malagu.linq</groupId>
 	<artifactId>linq</artifactId>
-	<version>1.1.1-SNAPSHOT</version>
+	<version>1.1.1.RELEASE</version>
 	<name>${project.groupId}:${project.artifactId}</name>
 	<description>语言集成查询工具</description>
 	<url>https://github.com/muxiangqiu/linq</url>
