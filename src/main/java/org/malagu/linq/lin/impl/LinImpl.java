@@ -325,7 +325,7 @@ public abstract class LinImpl<T extends Lin<T, Q>, Q extends CommonAbstractCrite
 		if (!beforeMethodInvoke()) {
 			return (T) this;
 		}
-		add(cb.ge(root.get(x).as(Number.class), y));
+		add(cb.ge(root.get(x), y));
 		return (T) this;
 	}
 	
